@@ -1,0 +1,23 @@
+from django.db import models
+
+# Create your models here.
+class Users(models.Model):
+    employee_id = models.CharField(max_length=10, unique=True)
+    name = models.CharField(max_length=25)
+    age = models.IntegerField()
+    experience = models.FloatField()
+
+    def upload_dir(self, filename):
+        path = 'hrm/photo/{}'.format(filename)
+        return path
+
+    profile_picture = models.ImageField(upload_to=upload_dir, null=True, blank=True)
+
+    def upload_file(self, filename):
+        path = 'hrm/photo/{}'.format(filename)
+        return path
+
+    resume = models.ImageField(upload_to=upload_file, null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.employee_id} - {self.name}"
